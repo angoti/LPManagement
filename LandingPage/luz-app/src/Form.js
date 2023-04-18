@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useCheckbox, useForm, useInput } from "lx-react-form";
-import { Navigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import TextField from '@mui/material/TextField';
 
 const Form = () => {
 
@@ -52,7 +58,7 @@ const Form = () => {
             "telefone": form.telefone.replace(/[^0-9]+/g, '')
         }
         console.log(newForm);
-        fetch('https://localhost/cliente', {
+        fetch('https://localhost:8080/cliente', {
             method: 'POST',
             body: JSON.stringify(newForm),
             headers: {
@@ -73,42 +79,30 @@ const Form = () => {
     return (
         <div>
             {submitted ? (
-                <Navigate to="/thankyou" replace="true" />
+                <div>Enviado</div>
             ) : (
-
                 <div id="form" className="form" name="form">
+                    <h2>CONTATO</h2>
+                    <h3>Preencha o formulário ao lado que entraremos em contato o mais rápido possível.</h3>
+                    <FormControl>
+                        <TextField id="outlined-basic" required label="Seu nome" variant="outlined" margin="normal" {...name.inputProps} />
+                        <TextField id="outlined-basic" label="Seu melhor e-mail" variant="outlined" margin="normal" {...email.inputProps} />
+                        <TextField id="outlined-basic" required label="Telefone (WhatsApp)" margin="normal" variant="outlined" {...phone.inputProps} />
+                        <FormLabel id="demo-radio-buttons-group-label">Categoria</FormLabel>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            row
+                            defaultValue="bolsas"
+                            name="radio-buttons-group"
+                        >
+                            <FormControlLabel value="bolsas" control={<Radio />} label="Bolsas" />
+                            <FormControlLabel value="cintos" control={<Radio />} label="Cintos" />
+                            <FormControlLabel value="carteiras" control={<Radio />} label="Carteiras" />
+                            <FormControlLabel value="bijuterias" control={<Radio />} label="Bijuterias" />
+                        </RadioGroup>
+                        <Button variant="contained">Enviar</Button>
+                    </FormControl>
 
-                    <form onSubmit={preventDefault}>
-                        <h2>CONTATO</h2>
-                        <h3>Preencha o formulário ao lado que entraremos em contato o mais rápido possível.</h3>
-                        <input style={name.error ? {
-                            backgroundColor: "rgba(163,55,84,0.4)"
-                        } : {}} placeholder='Seu nome' type="text" {...name.inputProps} />
-                        <div style={name.error ? { opacity: "1" } : { opacity: "0" }}>
-                            {name.error && (name.error)}.</div>
-
-                        <input style={email.error ? {
-                            backgroundColor: "rgba(163,55,84,0.4)", color: "#ffff"
-                        } : {}} placeholder='Seu melhor e-mail' type="email" {...email.inputProps} />
-                        <div style={email.error ? { opacity: "1" } : { opacity: "0" }}>{email.error && (email.error)}.</div>
-
-                        <input style={phone.error ? {
-                            backgroundColor: "rgba(163,55,84,0.4)"
-                        } : {}} placeholder='Telefone (WhatsApp)' type="tel" {...phone.inputProps} />
-                        <div style={phone.error ? { opacity: "1" } : { opacity: "0" }}>{phone.error && (phone.error)}.</div>
-
-
-                        <label htmlFor={terms.name} className="cont">
-
-                            <input type="checkbox" {...terms.inputProps} />
-                            <span className="checkmark"></span>
-                            <span>Eu aceito os termos e condições</span>
-                            {/* <span>Eu aceito os <Link to="/terms">termos e condições</Link>.</span> */}
-                        </label>
-                        <div style={terms.error ? { opacity: "1" } : { opacity: "0" }}>{terms.error && (terms.error)}.</div>
-
-                        <button type="submit" >Enviar</button>
-                    </form>
                 </div>
             )
             }

@@ -1,0 +1,11 @@
+.lamp {
+  background-color: #f8de7e; /* Set the default color of the lamp */
+  height: 50px;
+  width: 50px;
+  border-radius: 50%; /* Make the lamp circular */
+  transition: background-color 0.5s ease; /* Add a transition effect */
+}
+
+.lamp:hover {
+  background-color: #ffec8b; /* Set the color of the lamp on hover */
+}
