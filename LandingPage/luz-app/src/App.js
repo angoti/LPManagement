@@ -1,8 +1,9 @@
-import Form from "./Form";
+import AddClient from "./AddClient";
+
 function App() {
   return (
     <div className="App">
-      <Form />
+      <AddClient />
     </div>
   );
 }
