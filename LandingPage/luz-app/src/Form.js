@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useCheckbox, useForm, useInput } from "lx-react-form";
-import { Navigate } from 'react-router-dom';
 
 const Form = () => {
 
@@ -73,7 +72,7 @@ const Form = () => {
     return (
         <div>
             {submitted ? (
-                <Navigate to="/thankyou" replace="true" />
+                <></>
             ) : (
 
                 <div id="form" className="form" name="form">
