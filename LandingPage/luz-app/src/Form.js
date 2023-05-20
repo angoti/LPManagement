@@ -79,7 +79,7 @@ const Form = () => {
     return (
         <div>
             {submitted ? (
-                <div>Enviado</div>
+                <></>
             ) : (
                 <div id="form" className="form" name="form">
                     <h2>CONTATO</h2>
