@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { db } from './service/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -39,6 +41,23 @@ const AddClient = () => {
         }
     };
 
+    const phone = useInput({
+        name: "phone",
+        validation: "phone",
+        mask: "telefone",
+        errorText: {
+            validation: "Telefone inválido"
+        }
+    });
+
+    const validation = Yup.object().shape({
+        name: Yup.string().min(3, 'O nome precisa ter pelo menos 3 caracteres'),
+        phone:
+            email: Yup.string()
+                .email('O Email digitado é inválido'),
+        terms: Yup.bool().oneOf([true], 'Para prosseguir, por favor, aceite os termos.')
+    });
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!terms) {
@@ -60,7 +79,7 @@ const AddClient = () => {
         }
     }
 
-    const { name, email, phone, segment, terms } = state;
+    const { name, email, segment, terms } = state;
 
     return (
         <div>
