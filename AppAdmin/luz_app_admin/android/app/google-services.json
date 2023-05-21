@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "286860749647",
+    "project_id": "luzapp-858b0",
+    "storage_bucket": "luzapp-858b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286860749647:android:d4dff241cbda931012f33a",
+        "android_client_info": {
+          "package_name": "com.example.luz_app_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286860749647-pktqba9oapav4qfmhpcgeecufp65eich.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVY3YmB3TG8mRbC3ULKCkJGkNoeJRbR7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286860749647-pktqba9oapav4qfmhpcgeecufp65eich.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,6 @@
+{
+  "appTitle": "luz_app_admin",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
