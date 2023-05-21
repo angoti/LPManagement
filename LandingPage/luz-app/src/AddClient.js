@@ -41,20 +41,19 @@ const AddClient = () => {
         }
     };
 
-    const phone = useInput({
-        name: "phone",
-        validation: "phone",
-        mask: "telefone",
-        errorText: {
-            validation: "Telefone inválido"
-        }
-    });
+    // const phone = useInput({
+    //     name: "phone",
+    //     validation: "phone",
+    //     mask: "telefone",
+    //     errorText: {
+    //         validation: "Telefone inválido"
+    //     }
+    // });
 
     const validation = Yup.object().shape({
         name: Yup.string().min(3, 'O nome precisa ter pelo menos 3 caracteres'),
-        phone:
-            email: Yup.string()
-                .email('O Email digitado é inválido'),
+        phone: Yup.string().matches(/^[0-9]{10,11}$/, 'Telefone inválido. O telefone deve ter entre 10 e 11 dígitos.'),
+        email: Yup.string().email('O Email digitado é inválido'),
         terms: Yup.bool().oneOf([true], 'Para prosseguir, por favor, aceite os termos.')
     });
 
@@ -79,7 +78,7 @@ const AddClient = () => {
         }
     }
 
-    const { name, email, segment, terms } = state;
+    const { name, email, phone, segment, terms } = state;
 
     return (
         <div>
@@ -141,7 +140,7 @@ const AddClient = () => {
             )
             }
 
-        </div >
+        </div>
     );
 
 }
