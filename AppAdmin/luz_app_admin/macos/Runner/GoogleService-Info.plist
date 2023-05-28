@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>286860749647-ihu0ic77c7pshusl5m4acmered8rnat7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.286860749647-ihu0ic77c7pshusl5m4acmered8rnat7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDv6G2JUFYj0UOcVO7XSVdrurT4h6kyeaI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>286860749647</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.luzAppAdmin.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>luzapp-858b0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>luzapp-858b0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:286860749647:ios:cbd5193246ecfb6312f33a</string>
+</dict>
+</plist>

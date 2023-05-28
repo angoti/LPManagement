@@ -29,6 +29,13 @@
             {
               "client_id": "286860749647-pktqba9oapav4qfmhpcgeecufp65eich.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "286860749647-ubtuucabssq2c8fcq76kbg6pe6vo3ctc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.luzAppAdmin"
+              }
             }
           ]
         }

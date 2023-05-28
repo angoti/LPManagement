@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBWS89QNiH2ja85PIQeKlr1Rw90REThb6M',
+    appId: '1:286860749647:web:2e2c68102427c6e212f33a',
+    messagingSenderId: '286860749647',
+    projectId: 'luzapp-858b0',
+    authDomain: 'luzapp-858b0.firebaseapp.com',
+    storageBucket: 'luzapp-858b0.appspot.com',
+    measurementId: 'G-QM1JZSSYYQ',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCVY3YmB3TG8mRbC3ULKCkJGkNoeJRbR7g',
     appId: '1:286860749647:android:d4dff241cbda931012f33a',
@@ -65,5 +69,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'luzapp-858b0.appspot.com',
     iosClientId: '286860749647-ubtuucabssq2c8fcq76kbg6pe6vo3ctc.apps.googleusercontent.com',
     iosBundleId: 'com.example.luzAppAdmin',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDv6G2JUFYj0UOcVO7XSVdrurT4h6kyeaI',
+    appId: '1:286860749647:ios:cbd5193246ecfb6312f33a',
+    messagingSenderId: '286860749647',
+    projectId: 'luzapp-858b0',
+    storageBucket: 'luzapp-858b0.appspot.com',
+    iosClientId: '286860749647-ihu0ic77c7pshusl5m4acmered8rnat7.apps.googleusercontent.com',
+    iosBundleId: 'com.example.luzAppAdmin.RunnerTests',
   );
 }

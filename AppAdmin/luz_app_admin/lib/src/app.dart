@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:luz_app_admin/src/content/upload_image.dart';
+import 'package:luz_app_admin/src/main_menu.dart';
 
-import 'sample_feature/ListClients.dart';
-import 'sample_feature/sample_item_details_view.dart';
+import 'clients/list_client.dart';
+import 'clients/client_details_view.dart';
+import 'content/content.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -42,7 +45,7 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [
-            Locale('en', ''), // English, no country code
+            Locale('en', 'pt-br'),
           ],
 
           // Use AppLocalizations to configure the correct application title
@@ -69,11 +72,18 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
-                  case ListClients.routeName:
+                  case ClientDetailsView.routeName:
+                    return const ClientDetailsView();
+                  case ListClient.routeName:
+                    return ListClient();
+                  case UploadImage.routeName:
+                    return UploadImage();
+                  case Content.routeName:
+                    return Content();
+                  case MainMenu.routeName:
+                    return MainMenu();
                   default:
-                    return ListClients();
+                    return MainMenu();
                 }
               },
             );

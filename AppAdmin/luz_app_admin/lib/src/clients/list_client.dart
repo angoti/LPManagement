@@ -1,29 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../settings/settings_view.dart';
-import 'Client.dart';
-import 'sample_item_details_view.dart';
+import 'client_details_view.dart';
 
-class ListClients extends StatelessWidget {
-  static const routeName = '/';
+class ListClient extends StatelessWidget {
+  static const routeName = '/Clients';
+
+  const ListClient({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Clientes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-          ),
-        ],
       ),
 
       // To work with lists that may contain a large number of items, it’s best
@@ -36,33 +25,34 @@ class ListClients extends StatelessWidget {
         stream: FirebaseFirestore.instance.collection('clients').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Ocorreu um erro ao carregar os clientes');
+            return const Text('Ocorreu um erro ao carregar os clientes');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('Carregando...');
+            return const Text('Carregando...');
           }
 
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data() as Map<String, dynamic>;
-              String name = data['name'];
-              String email = data['email'];
-              String phone = data['phone'];
-              String segment = data['segment'];
 
               return ListTile(
-                  title: Text(name),
-                  subtitle: Text(email),
-                  trailing: Text(phone),
+                  title: Text(data['name']),
+                  subtitle: Text(data['email']),
                   onTap: () {
                     // Navigate to the details page. If the user leaves and returns to
                     // the app after it has been killed while running in the
                     // background, the navigation stack is restored.
                     Navigator.restorablePushNamed(
                       context,
-                      SampleItemDetailsView.routeName,
+                      ClientDetailsView.routeName,
+                      arguments: {
+                        'name': data['name'],
+                        'email': data['email'],
+                        'phone': data['phone'],
+                        'segment': data['segment']
+                      },
                     );
                   });
             }).toList(),
