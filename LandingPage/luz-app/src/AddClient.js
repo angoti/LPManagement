@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import { AssignmentInd, Email, Phone } from "@mui/icons-material";
-import { Checkbox, Container, Divider, FormHelperText, Stack } from "@mui/material";
+import { Checkbox, Container, Divider, FormGroup, FormHelperText, Stack } from "@mui/material";
 
 const AddClient = () => {
 
@@ -22,9 +22,15 @@ const AddClient = () => {
         name: "",
         email: "",
         phone: "",
-        segment: "bolsas",
         terms: false
     });
+    const [segments, setSegments] = useState([]);
+    // const [segments, setSegments] = useState({
+    //     bolsas: false,
+    //     cintos: false,
+    //     carteiras: false,
+    //     bijuterias: false
+    // });
 
     const handleChange = (event) => {
         const { name, value, checked } = event.target;
@@ -39,6 +45,17 @@ const AddClient = () => {
                 [event.target.name]: value,
             });
         }
+    };
+
+    const handleCheck = (event) => {
+        const { value, checked } = event.target;
+
+        if(checked) {
+            setSegments((prevValues) => [...prevValues, value]);
+        } else {
+            setSegments((prevValues) => prevValues.filter((item) => item !== value));
+        }
+        // setSegments({...segments, [event.target.value]: checked});    
     };
 
     // const phone = useInput({
@@ -68,7 +85,7 @@ const AddClient = () => {
                     name: name,
                     email: email,
                     phone: phone,
-                    segment: segment,
+                    segments: segments,
                     created: Timestamp.now()
                 })
                 setSubmitted(true)
@@ -78,7 +95,7 @@ const AddClient = () => {
         }
     }
 
-    const { name, email, phone, segment, terms } = state;
+    const { name, email, phone, terms } = state;
 
     return (
         <div>
@@ -107,18 +124,12 @@ const AddClient = () => {
                                 }} />
                             <FormControl component="fieldset" fullWidth margin="normal">
                                 <FormLabel id="demo-radio-buttons-group-label">Categoria</FormLabel>
-                                <RadioGroup
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    row
-                                    name="radio-buttons-group"
-                                    value={segment}
-                                    onChange={handleChange}
-                                >
-                                    <FormControlLabel value="bolsas" control={<Radio />} label="Bolsas" />
-                                    <FormControlLabel value="cintos" control={<Radio />} label="Cintos" />
-                                    <FormControlLabel value="carteiras" control={<Radio />} label="Carteiras" />
-                                    <FormControlLabel value="bijuterias" control={<Radio />} label="Bijuterias" />
-                                </RadioGroup>
+                                <FormGroup onChange={handleCheck}>
+                                    <FormControlLabel value="bolsas" control={<Checkbox />} label="Bolsas" />
+                                    <FormControlLabel value="cintos" control={<Checkbox />}  label="Cintos" />
+                                    <FormControlLabel value="carteiras" control={<Checkbox />}  label="Carteiras" />
+                                    <FormControlLabel value="bijuterias" control={<Checkbox />} label="Bijuterias" />
+                                </FormGroup>
                             </FormControl>
                             <FormControl error={error}>
                                 <FormControlLabel
