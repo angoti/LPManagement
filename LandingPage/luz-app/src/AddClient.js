@@ -1,36 +1,27 @@
 import { useState } from "react";
 import { db } from './service/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Button from '@mui/material/Button';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import { AssignmentInd, Email, Phone } from "@mui/icons-material";
 import { Checkbox, Container, Divider, FormGroup, FormHelperText, Stack } from "@mui/material";
+import MaskedInput from "react-text-mask";
 
 const AddClient = () => {
 
     const [submitted, setSubmitted] = useState(false);
-    const [error, setError] = useState(false);
-    const [helperText, setHelperText] = useState('');
     const [state, setState] = useState({
         name: "",
         email: "",
         phone: "",
         terms: false
     });
+    const [formErrors, setFormErrors] = useState({});
     const [segments, setSegments] = useState([]);
-    // const [segments, setSegments] = useState({
-    //     bolsas: false,
-    //     cintos: false,
-    //     carteiras: false,
-    //     bijuterias: false
-    // });
 
     const handleChange = (event) => {
         const { name, value, checked } = event.target;
@@ -55,44 +46,43 @@ const AddClient = () => {
         } else {
             setSegments((prevValues) => prevValues.filter((item) => item !== value));
         }
-        // setSegments({...segments, [event.target.value]: checked});    
     };
 
-    // const phone = useInput({
-    //     name: "phone",
-    //     validation: "phone",
-    //     mask: "telefone",
-    //     errorText: {
-    //         validation: "Telefone inválido"
-    //     }
-    // });
+    const phoneMask = [ '(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ];
 
-    const validation = Yup.object().shape({
+    const validationSchema = Yup.object().shape({
         name: Yup.string().min(3, 'O nome precisa ter pelo menos 3 caracteres'),
-        phone: Yup.string().matches(/^[0-9]{10,11}$/, 'Telefone inválido. O telefone deve ter entre 10 e 11 dígitos.'),
+        phone: Yup.string().test('phone', 'Telefone inválido. O telefone deve ter 10 ou 11 dígitos.', (value) => {const telefoneSemMascara = value.replace(/\D/g, ''); return telefoneSemMascara.length === 10 || telefoneSemMascara.length === 11}),
         email: Yup.string().email('O Email digitado é inválido'),
         terms: Yup.bool().oneOf([true], 'Para prosseguir, por favor, aceite os termos.')
     });
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        if (!terms) {
-            setHelperText('Para prosseguir, por favor, aceite os termos.');
-            setError(true);
-        } else {
-            try {
-                await addDoc(collection(db, 'clients'), {
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    segments: segments,
-                    created: Timestamp.now()
-                })
-                setSubmitted(true)
-            } catch (err) {
-                alert(err)
-            }
-        }
+        e.preventDefault();
+        validationSchema
+            .validate(state, {abortEarly: false})
+            .then(()=> {//validação bem-sucedida
+                 try {
+                    addDoc(collection(db, 'clients'), {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        segments: segments,
+                        created: Timestamp.now()
+                    })
+                    setSubmitted(true)
+                } catch (err) {
+                    alert(err)
+                }
+                    
+            })
+            .catch((validationErrors) => {
+                //Validação falhou
+                const errors = {};
+                validationErrors.inner.forEach((error) => {errors[error.path] = error.message;});
+                setFormErrors(errors);
+            })
+        
     }
 
     const { name, email, phone, terms } = state;
@@ -112,15 +102,23 @@ const AddClient = () => {
                     <Container maxWidth="sm">
                         <form onSubmit={handleSubmit}>
                             <TextField id="outlined-basic" required label="Seu nome" variant="outlined" margin="normal" fullWidth name="name" value={name}
+                                error={Boolean(formErrors.name)}
+                                helperText={formErrors.name}
                                 onChange={handleChange}
                                 InputProps={{ startAdornment: <AssignmentInd /> }} />
                             <TextField id="outlined-basic" label="Seu melhor e-mail" variant="outlined" fullWidth margin="normal" name="email" value={email}
+                                error={Boolean(formErrors.email)}
+                                helperText={formErrors.email}
                                 onChange={handleChange}
                                 InputProps={{ startAdornment: <Email /> }} />
                             <TextField id="outlined-basic" required label="Telefone (WhatsApp)" fullWidth margin="normal" variant="outlined" name="phone" value={phone}
+                                error={Boolean(formErrors.phone)}
+                                helperText={formErrors.phone}
                                 onChange={handleChange}
                                 InputProps={{
-                                    startAdornment: <Phone />
+                                    startAdornment: <Phone />,
+                                    inputComponent: MaskedInput,
+                                    inputProps: {mask: phoneMask}
                                 }} />
                             <FormControl component="fieldset" fullWidth margin="normal">
                                 <FormLabel id="demo-radio-buttons-group-label">Categoria</FormLabel>
@@ -131,7 +129,7 @@ const AddClient = () => {
                                     <FormControlLabel value="bijuterias" control={<Checkbox />} label="Bijuterias" />
                                 </FormGroup>
                             </FormControl>
-                            <FormControl error={error}>
+                            <FormControl error={Boolean(formErrors.terms)}>
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -142,7 +140,7 @@ const AddClient = () => {
                                     }
                                     label="Aceito os termos e condições"
                                 />
-                                <FormHelperText>{helperText}</FormHelperText>
+                                <FormHelperText>{formErrors.terms}</FormHelperText>
                             </FormControl>
                             <Button fullWidth type="submit" variant="contained">Enviar</Button>
                         </form>
