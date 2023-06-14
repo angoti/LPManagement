@@ -1,19 +1,3 @@
 # LPManagement
 
-const telefoneMask = [
-  '(',
-  /[1-9]/,
-  /\d/,
-  ')',
-  ' ',
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/,
-  '-',
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/
-];
+npm install react-text-mask text-mask-addons
