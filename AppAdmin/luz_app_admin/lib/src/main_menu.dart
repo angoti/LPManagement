@@ -6,14 +6,13 @@ import 'content/content.dart';
 
 class MainMenu extends StatelessWidget {
   static const routeName = '/Menu';
-
   const MainMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu'),
+        title: const Text('Menu'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -34,13 +33,13 @@ class MainMenu extends StatelessWidget {
               onPressed: () {
                 Navigator.restorablePushNamed(context, ListClient.routeName);
               },
-              child: Text('Clientes'),
+              child: const Text('Clientes'),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.restorablePushNamed(context, Content.routeName);
               },
-              child: Text('Gerenciar Conteúdo'),
+              child: const Text('Gerenciar Conteúdo'),
             ),
           ],
         ),

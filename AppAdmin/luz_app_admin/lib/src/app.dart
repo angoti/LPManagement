@@ -7,8 +7,11 @@ import 'package:luz_app_admin/src/main_menu.dart';
 import 'clients/list_client.dart';
 import 'clients/client_details_view.dart';
 import 'content/content.dart';
+import 'google_sign_in_screen.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -66,24 +69,40 @@ class MyApp extends StatelessWidget {
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
+            // if (!isUserAuthenticated()) {
+            //   // Se o usuário não estiver autenticado, redirecione-o para a tela de autenticação
+            //   print(isUserAuthenticated);
+            //   return MaterialPageRoute<void>(
+            //     settings: routeSettings,
+            //     builder: (BuildContext context) => GoogleSignInScreen(),
+            //   );
+            // }
+
             return MaterialPageRoute<void>(
               settings: routeSettings,
               builder: (BuildContext context) {
-                switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
-                  case ClientDetailsView.routeName:
-                    return const ClientDetailsView();
-                  case ListClient.routeName:
-                    return ListClient();
-                  case UploadImage.routeName:
-                    return UploadImage();
-                  case Content.routeName:
-                    return Content();
-                  case MainMenu.routeName:
-                    return MainMenu();
-                  default:
-                    return MainMenu();
+                if (!isUserAuthenticated()) {
+                  print("------------------------------> Não autenticado");
+                  return GoogleSignInScreen();
+                } else {
+                  print("------------------------------>");
+                  print(FirebaseAuth.instance.currentUser);
+                  switch (routeSettings.name) {
+                    case SettingsView.routeName:
+                      return SettingsView(controller: settingsController);
+                    case ClientDetailsView.routeName:
+                      return const ClientDetailsView();
+                    case ListClient.routeName:
+                      return const ListClient();
+                    case UploadImage.routeName:
+                      return const UploadImage();
+                    case Content.routeName:
+                      return const Content();
+                    case MainMenu.routeName:
+                      return const MainMenu();
+                    default:
+                      return const MainMenu();
+                  }
                 }
               },
             );
@@ -91,5 +110,10 @@ class MyApp extends StatelessWidget {
         );
       },
     );
+  }
+
+  bool isUserAuthenticated() {
+    final User? user = FirebaseAuth.instance.currentUser;
+    return user != null;
   }
 }

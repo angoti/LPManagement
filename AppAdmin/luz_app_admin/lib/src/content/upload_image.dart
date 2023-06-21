@@ -6,6 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 class UploadImage extends StatefulWidget {
   static const routeName = '/upload_image';
 
+  const UploadImage({super.key});
+
   @override
   _UploadImageState createState() => _UploadImageState();
 }
@@ -30,14 +32,14 @@ class _UploadImageState extends State<UploadImage> {
         await reference.putFile(
             _selectedImage!); // Utilize o operador "!" para acessar um valor nullable
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Upload concluído com sucesso!')));
+            const SnackBar(content: Text('Upload concluído com sucesso!')));
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Falha ao fazer upload da imagem.')));
+            const SnackBar(content: Text('Falha ao fazer upload da imagem.')));
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Selecione uma imagem para fazer o upload.')));
+          const SnackBar(content: Text('Selecione uma imagem para fazer o upload.')));
     }
   }
 
@@ -45,9 +47,9 @@ class _UploadImageState extends State<UploadImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gerenciar Conteúdo'),
+        title: const Text('Gerenciar Conteúdo'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -62,16 +64,16 @@ class _UploadImageState extends State<UploadImage> {
                     _selectedImage!,
                     height: 200,
                   )
-                : Text('Nenhuma imagem selecionada.'),
-            SizedBox(height: 20),
+                : const Text('Nenhuma imagem selecionada.'),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _selectImage,
-              child: Text('Selecionar Imagem'),
+              child: const Text('Selecionar Imagem'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _uploadImage,
-              child: Text('Fazer Upload'),
+              child: const Text('Fazer Upload'),
             ),
           ],
         ),

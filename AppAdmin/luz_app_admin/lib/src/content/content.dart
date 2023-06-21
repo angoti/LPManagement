@@ -6,6 +6,8 @@ import 'list_images.dart';
 
 class Content extends StatefulWidget {
   static const routeName = '/Content';
+
+  const Content({super.key});
   @override
   _ContentState createState() => _ContentState();
 
@@ -55,7 +57,7 @@ class _ContentState extends State<Content> {
         ],
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
@@ -87,7 +89,7 @@ class _ContentState extends State<Content> {
                 top: 10,
                 right: 10,
                 child: IconButton(
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -100,7 +102,7 @@ class _ContentState extends State<Content> {
                   onPressed: () {
                     _showDeleteConfirmationDialog(context, imageUrl);
                   },
-                  child: Text('Excluir'),
+                  child: const Text('Excluir'),
                 ),
               ),
             ],
@@ -115,21 +117,21 @@ class _ContentState extends State<Content> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirmação'),
-          content: Text('Tem certeza de que deseja excluir esta imagem?'),
+          title: const Text('Confirmação'),
+          content: const Text('Tem certeza de que deseja excluir esta imagem?'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancelar'),
+              child: const Text('Cancelar'),
             ),
             TextButton(
               onPressed: () {
                 _deleteImage(imageUrl);
                 Navigator.of(context).pop();
               },
-              child: Text('Excluir'),
+              child: const Text('Excluir'),
             ),
           ],
         );
