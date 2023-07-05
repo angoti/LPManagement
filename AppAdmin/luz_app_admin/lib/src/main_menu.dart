@@ -28,18 +28,32 @@ class MainMenu extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.restorablePushNamed(context, ListClient.routeName);
-              },
-              child: const Text('Clientes'),
+            SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.restorablePushNamed(context, ListClient.routeName);
+                },
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(fontSize: 18),
+                ),
+                child: const Text('Clientes'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.restorablePushNamed(context, Content.routeName);
-              },
-              child: const Text('Gerenciar Conteúdo'),
+            SizedBox(height: 10),
+            SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.restorablePushNamed(context, Content.routeName);
+                },
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(fontSize: 18),
+                ),
+                child: const Text('Gerenciar Conteúdo'),
+              ),
             ),
           ],
         ),

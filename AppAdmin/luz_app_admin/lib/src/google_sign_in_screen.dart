@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:luz_app_admin/src/main_menu.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   @override
@@ -45,6 +46,7 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
               // print('Usuário autenticado: ${userCredential.user}');
               print(
                   '------------------------------------------------> Autenticado');
+              Navigator.restorablePushNamed(context, MainMenu.routeName);
             }).catchError((e) {
               // Erro ao autenticar
               print('Erro ao autenticar com o Google: $e');
