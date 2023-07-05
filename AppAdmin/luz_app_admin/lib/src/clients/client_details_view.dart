@@ -14,7 +14,7 @@ class ClientDetailsView extends StatelessWidget {
     final String name = arguments['name'] ?? '';
     final String email = arguments['email'] ?? '';
     final String phone = arguments['phone'] ?? '';
-    final String segment = arguments['segment'] ?? '';
+    final String segments = arguments['segments'] ?? '';
 
     return Scaffold(
         appBar: AppBar(
@@ -27,7 +27,7 @@ class ClientDetailsView extends StatelessWidget {
               Text('Nome: $name'),
               Text('E-mail: $email'),
               Text('Telefone: $phone'),
-              Text('Categoria de interesse: $segment'),
+              Text('Categorias de interesse: $segments'),
             ],
           ),
         ));
