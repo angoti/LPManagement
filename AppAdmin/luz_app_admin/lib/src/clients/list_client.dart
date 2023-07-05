@@ -37,24 +37,37 @@ class ListClient extends StatelessWidget {
               Map<String, dynamic> data =
                   document.data() as Map<String, dynamic>;
 
-              return ListTile(
-                  title: Text(data['name']),
-                  subtitle: Text(data['email']),
-                  onTap: () {
-                    // Navigate to the details page. If the user leaves and returns to
-                    // the app after it has been killed while running in the
-                    // background, the navigation stack is restored.
-                    Navigator.restorablePushNamed(
-                      context,
-                      ClientDetailsView.routeName,
-                      arguments: {
-                        'name': data['name'],
-                        'email': data['email'],
-                        'phone': data['phone'],
-                        'segment': data['segment']
-                      },
-                    );
-                  });
+              return Container(
+                  margin: EdgeInsets.only(bottom: 9),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.white, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 4,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                      title: Text(data['name']),
+                      subtitle: Text(data['email']),
+                      onTap: () {
+                        // Navigate to the details page. If the user leaves and returns to
+                        // the app after it has been killed while running in the
+                        // background, the navigation stack is restored.
+                        Navigator.restorablePushNamed(
+                          context,
+                          ClientDetailsView.routeName,
+                          arguments: {
+                            'name': data['name'],
+                            'email': data['email'],
+                            'phone': data['phone'],
+                            'segment': data['segment']
+                          },
+                        );
+                      }));
             }).toList(),
           );
         },

@@ -45,36 +45,49 @@ class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gerenciar Conteúdo'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.file_upload_outlined),
-            onPressed: () {
-              Navigator.restorablePushNamed(context, UploadImage.routeName);
-            },
-          ),
-        ],
-      ),
-      body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: imageUrls.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    _showImagePopup(context, imageUrls[index]);
-                  },
-                  child: ListTile(
-                    leading: Image.network(imageUrls[index]),
-                    title: Text('Imagem $index'),
-                  ),
-                );
+        appBar: AppBar(
+          title: const Text('Gerenciar Conteúdo'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.file_upload_outlined),
+              onPressed: () {
+                Navigator.restorablePushNamed(context, UploadImage.routeName);
               },
             ),
-    );
+          ],
+        ),
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: imageUrls.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      _showImagePopup(context, imageUrls[index]);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 9),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.white, width: 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: Image.network(imageUrls[index]),
+                        title: Text('Imagem $index'),
+                      ),
+                    ),
+                  );
+                },
+              ));
   }
 
   void _showImagePopup(BuildContext context, String imageUrl) {
